@@ -1,15 +1,19 @@
 require 'sinatra'
+require 'ftools'
+require 'data_mapper'
+require 'dm-sqlite-adapter'
 require 'dm-core'
-require 'dv-validations'
+require 'dm-validations'
 require 'dm-timestamps'
+
 
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/mydatabase.sqlite3")
 
 class StoredFile
   include DataMapper::Resource
 
-  property :id, Integer, serial: true
-  property :filename, String, nullable: false
+  property :id, Serial
+  property :filename, String
   property :created_at, DateTime
 
   default_scope(:default).update(order: [:created_at.desc])
@@ -26,7 +30,7 @@ post '/' do
   tempfile = params['file'][:tempfile]
   @file = StoredFile.new(filename: params['file'][:filename])
   @file.save!
-  File.copy(tempfile.path, "./files/#{@file.id}.upload")
+  FileUtils.cp(tempfile.path, "./files/#{@file.id}.upload")
   redirect '/'
 end
 
@@ -37,8 +41,8 @@ get '/:id' do
 end
 
 get '/:id/delete' do
-  StoredFile.get(params[:id]).destroy
   File.delete("./files/#{params[:id]}.upload")
+  StoredFile.get(params[:id]).destroy
   redirect '/'
 end
 
