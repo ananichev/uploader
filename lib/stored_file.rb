@@ -1,0 +1,22 @@
+require File.expand_path(File.dirname(__FILE__) + '/lib/sinatra/lib/sinatra')
+require File.expand_path(File.dirname(__FILE__) + '/lib/config')
+require 'ftools'
+require 'data_mapper'
+require 'dm-sqlite-adapter'
+require 'dm-core'
+require 'dm-validations'
+require 'dm-timestamps'
+
+DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/mydatabase.sqlite3")
+
+class StoredFile
+  include DataMapper::Resource
+
+  property :id, Serial
+  property :filename, String
+  property :created_at, DateTime
+
+  default_scope(:default).update(order: [:created_at.desc])
+end
+
+DataMapper.auto_upgrade!
