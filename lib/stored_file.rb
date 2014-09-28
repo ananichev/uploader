@@ -13,6 +13,8 @@ class StoredFile
   property :filename, String
   property :created_at, DateTime
   property :sha, String
+  property :downloads, Integer, default: 0
+  property :filesize, Integer
 
   default_scope(:default).update(order: [:created_at.desc])
 end

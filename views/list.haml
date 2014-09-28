@@ -7,12 +7,15 @@
       %tr
         %th File
         %th Upload
+        %th Downloaded
         %th Delete
       - @files.each do |file|
         %tr
           %td.filename
             %a{ :href => "/#{file.sha}", :title => file.filename }= file.filename
-          %td.created_at= file.created_at
+            = "(#{file.filesize/1024} Kb)"
+          %td.created_at= file.created_at.strftime("%d %b")
+          %td.downloads= file.downloads
           %td.delete
             %a{ :href => "/#{file.sha}/delete", :title => "Delete" } Delete
 .upload

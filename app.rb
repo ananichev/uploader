@@ -12,13 +12,15 @@ post '/' do
   tempfile = params['file'][:tempfile]
   filename = params['file'][:filename]
   digest = Digest::SHA1.hexdigest(filename)
-  @file = StoredFile.create(filename: params['file'][:filename], sha: digest)
+  @file = StoredFile.create(filename: params['file'][:filename], sha: digest, filesize: File.size(tempfile.path))
   FileUtils.cp(tempfile.path, "./files/#{@file.id}.upload")
   redirect '/'
 end
 
 get '/:sha' do
   @file = StoredFile.first(sha: params[:sha])
+  @file.downloads += 1
+  @file.save
   send_file "./files/#{@file.id}.upload", filename: @file.filename, type: 'Application/octet-stream'
   redirect '/'
 end
