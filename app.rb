@@ -5,7 +5,7 @@ require 'ftools'
 
 get '/' do
   @files = StoredFile.all
-  erb :list
+  haml :list
 end
 
 post '/' do
