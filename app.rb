@@ -10,20 +10,22 @@ end
 
 post '/' do
   tempfile = params['file'][:tempfile]
-  @file = StoredFile.new(filename: params['file'][:filename])
-  @file.save!
+  filename = params['file'][:filename]
+  digest = Digest::SHA1.hexdigest(filename)
+  @file = StoredFile.create(filename: params['file'][:filename], sha: digest)
   FileUtils.cp(tempfile.path, "./files/#{@file.id}.upload")
   redirect '/'
 end
 
-get '/:id' do
-  @file = StoredFile.get(params[:id])
+get '/:sha' do
+  @file = StoredFile.first(sha: params[:sha])
   send_file "./files/#{@file.id}.upload", filename: @file.filename, type: 'Application/octet-stream'
   redirect '/'
 end
 
-get '/:id/delete' do
-  File.delete("./files/#{params[:id]}.upload")
-  StoredFile.get(params[:id]).destroy
+get '/:sha/delete' do
+  @file = StoredFile.first(sha: params[:sha])
+  File.delete("./files/#{@file.id}.upload")
+  @file.destroy
   redirect '/'
 end

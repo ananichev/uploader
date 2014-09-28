@@ -11,10 +11,10 @@
       - @files.each do |file|
         %tr
           %td.filename
-            %a{ :href => "/#{file.id}", :title => file.filename }= file.filename
+            %a{ :href => "/#{file.sha}", :title => file.filename }= file.filename
           %td.created_at= file.created_at
           %td.delete
-            %a{ :href => "/#{file.id}/delete", :title => "Delete" } Delete
+            %a{ :href => "/#{file.sha}/delete", :title => "Delete" } Delete
 .upload
   %h1 Add
   %form{ :name => "new_file", :enctype => "multipart/form-data", :method => "POST", :action => "/" }

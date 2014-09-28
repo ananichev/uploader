@@ -12,6 +12,7 @@ class StoredFile
   property :id, Serial
   property :filename, String
   property :created_at, DateTime
+  property :sha, String
 
   default_scope(:default).update(order: [:created_at.desc])
 end
