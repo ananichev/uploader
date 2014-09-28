@@ -17,11 +17,11 @@
           %td.created_at= file.created_at.strftime("%d %b")
           %td.downloads= file.downloads
           %td.delete
-            %a{ :href => "/#{file.sha}/delete", :title => "Delete" } Delete
+            %a{ :href => "/#{file.sha}/delete", :title => "Delete", :onclick => "return ORLY();" } Delete
 .upload
   %h1 Add
   %form{ :name => "new_file", :enctype => "multipart/form-data", :method => "POST", :action => "/" }
     %input{ :name => "file", :type => "file" }
     %br
-    %input{ :type => "submit", :value =>   "Upload" }
+    %input{ :type => "submit", :value => "Upload" }
 
