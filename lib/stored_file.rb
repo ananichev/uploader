@@ -1,6 +1,3 @@
-require File.expand_path(File.dirname(__FILE__) + '/lib/sinatra/lib/sinatra')
-require File.expand_path(File.dirname(__FILE__) + '/lib/config')
-require 'ftools'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
 require 'dm-core'
