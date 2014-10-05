@@ -1,0 +1,17 @@
+%script{ :type => "text/javascript" }
+  nowait = '?nowait=true';
+  var timeout = true;
+  setTimeout('if (timeout) {window.location = window.location + nowait;}', 10000);
+%h1 Downloading file
+.info
+  You are going to download the file
+  %span.filename>= "#{@file.filename}"
+  , size
+  %span.filesize
+    = @file.filesize/1024
+    Kb.
+  Download will start for
+  %span#seconds 10
+  seconds. Click on
+  %a{ :href => "/#{params[:sha]}/#{params[:id]}?nowait=true", :onclick => 'timeout = false;' } this link if you don't want to wait...
+  

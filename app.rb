@@ -17,16 +17,19 @@ post '/' do
   redirect '/'
 end
 
-get '/:sha' do
-  @file = StoredFile.first(sha: params[:sha])
-  @file.downloads += 1
-  @file.save
-  send_file "./files/#{@file.id}.upload", filename: @file.filename, type: 'Application/octet-stream'
-  redirect '/'
+get '/:sha/:id' do
+  @file = StoredFile.first(sha: params[:sha], id: params[:id])
+  unless params[:nowait] == 'true'
+    haml :download
+  else
+    @file.downloads += 1
+    @file.save
+    send_file "./files/#{@file.id}.upload", filename: @file.filename, type: 'Application/octet-stream'
+  end
 end
 
-get '/:sha/delete' do
-  @file = StoredFile.first(sha: params[:sha])
+get '/:sha/:id/delete' do
+  @file = StoredFile.first(sha: params[:sha], id: params[:id])
   File.delete("./files/#{@file.id}.upload")
   @file.destroy
   redirect '/'

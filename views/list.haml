@@ -12,12 +12,13 @@
       - @files.each do |file|
         %tr
           %td.filename
-            %a{ :href => "/#{file.sha}", :title => file.filename }= file.filename
+            %a{ :href => "/#{file.sha}/#{file.id}?nowait=true", :title => file.filename }= file.filename
             = "(#{file.filesize/1024} Kb)"
+            %a{ :href => "/#{file.sha}/#{file.id}" } for send.
           %td.created_at= file.created_at.strftime("%d %b")
           %td.downloads= file.downloads
           %td.delete
-            %a{ :href => "/#{file.sha}/delete", :title => "Delete", :onclick => "return ORLY();" } Delete
+            %a{ :href => "/#{file.sha}/#{file.id}/delete", :title => "Delete", :onclick => "return ORLY();" } Delete
 .upload
   %h1 Add
   %form{ :name => "new_file", :enctype => "multipart/form-data", :method => "POST", :action => "/" }
