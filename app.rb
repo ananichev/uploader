@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/lib/sinatra/lib/sinatra')
-require File.expand_path(File.dirname(__FILE__) + '/lib/config')
+require File.expand_path(File.dirname(__FILE__) + '/config/config')
 require File.expand_path(File.dirname(__FILE__) + '/lib/stored_file')
 require 'ftools'
 
