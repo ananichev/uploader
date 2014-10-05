@@ -1,8 +1,8 @@
 environment: production
-chdir: /home/leito1232/Рабочий стол/uploader
-pid: ~/"Рабочий стол"/uploader/tmp/thin.pid
-rackup: ~/"Рабочий стол"/uploader/config.ru
-log: ~/"Рабочий стол"/uploader/log/thin.log
+chdir: /home/leito1232/Desktop/uploader
+pid: /home/leito1232/Desktop/uploader/tmp/thin.pid
+rackup: /home/leito1232/Desktop/uploader/config.ru
+log: /home/leito1232/Desktop/uploader/log/thin.log
 max_conns: 1024
 timeout: 30
 max_persisten_conns: 512
