@@ -8,6 +8,11 @@ get '/' do
   haml :list
 end
 
+get '/style.css' do
+  response['Content-Type'] = 'text/css; charset=utf-8'
+  sass :style
+end
+
 post '/' do
   tempfile = params['file'][:tempfile]
   filename = params['file'][:filename]
